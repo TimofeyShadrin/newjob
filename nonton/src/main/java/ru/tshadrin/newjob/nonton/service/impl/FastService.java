@@ -5,9 +5,12 @@ import ru.tshadrin.newjob.nonton.service.AbstractStorage;
 import ru.tshadrin.newjob.nonton.service.DataService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-public class ProductService extends AbstractStorage<Product> implements DataService<Product> {
-    public ProductService() {
+public class FastService extends AbstractStorage<Product> implements DataService<Product> {
+    private final Logger logger = Logger.getLogger(FastService.class.getSimpleName());
+
+    public FastService() {
         super();
     }
 
@@ -37,6 +40,7 @@ public class ProductService extends AbstractStorage<Product> implements DataServ
 
     /**
      * Данный метод получает имя (name) продукта
+     *
      * @param id - уникальный номер продукта
      * @return name продукта у которого идентификатор равен (=) id,
      * если продукта нет, возвращает пустую строку ""
@@ -47,7 +51,10 @@ public class ProductService extends AbstractStorage<Product> implements DataServ
     }
 
     /**
-      * @param name - наименование продукта
+     * Данный метод получает список идентификаторов продуктов
+     * по указанному его имени
+     *
+     * @param name - наименование продукта
      * @return массив (список) идентификаторов (id),
      * у которых наименование равно (=) name
      * Если таких нет, возвращается пустой массив (список)

@@ -9,10 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class ClassicService extends AbstractStorage<Product> implements DataService<Product> {
-    private final Logger logger = Logger.getLogger(ClassicService.class.getSimpleName());
+public class ProductListing extends AbstractStorage<Product> implements DataService<Product> {
+    private final Logger logger = Logger.getLogger(ProductListing.class.getSimpleName());
 
-    public ClassicService() {
+    public ProductListing() {
         super();
     }
 
@@ -25,11 +25,7 @@ public class ClassicService extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean addProduct(Product product) {
-        if ((product.getName() == null || product.getName().isEmpty())
-                || (product.getId() == null || product.getId().isEmpty())) {
-            logger.warning("Входные данные не валидны");
-            return false;
-        }
+        if (validate(product)) return false;
         for (Product item : repository) {
             if ((item.getId()).equals(product.getId())) {
                 logger.warning("Продукт с id " + product.getId() + " уже существует");
@@ -48,11 +44,7 @@ public class ClassicService extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean deleteProduct(Product product) { //Уточнить (String id)?
-        if ((product.getName() == null || product.getName().isEmpty())
-                || (product.getId() == null || product.getId().isEmpty())) {
-            logger.warning("Входные данные не валидны");
-            return false;
-        }
+        if (validate(product)) return false;
         for (Product item : repository) {
             if ((item.getId()).equals(product.getId())) {
                 //&& (item.getName()).equals(product.getName())?
@@ -110,5 +102,19 @@ public class ClassicService extends AbstractStorage<Product> implements DataServ
         // если список пустой, то уничтожаем ссылку на объект возвращая Collections.emptyList(),
         // чтобы освободить кучу
         return (result.isEmpty()) ? Collections.emptyList() : result;
+    }
+
+    /**
+     * Данный метод валидирует данные входящей сущности "Product"
+     * @param product - продукт
+     * @return true - если данные не валидны, а false - если да.
+     */
+    private boolean validate(Product product) {
+        if ((product.getName() == null || product.getName().isEmpty())
+                || (product.getId() == null || product.getId().isEmpty())) {
+            logger.warning("Входные данные не валидны");
+            return true;
+        }
+        return false;
     }
 }

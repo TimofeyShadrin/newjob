@@ -4,9 +4,9 @@ import ru.tshadrin.newjob.nonton.domain.Product;
 
 import java.util.List;
 
-public interface ProductService {
-    boolean addProduct(Product product);
-    boolean deleteProduct(Product product);
+public interface DataService<T extends Product> {
+    boolean addProduct(T product);
+    boolean deleteProduct(T product);
     String getName(String id);
     List<String> findByName(String name);
 }

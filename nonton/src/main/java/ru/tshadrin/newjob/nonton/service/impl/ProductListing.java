@@ -25,7 +25,7 @@ public class ProductListing extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean addProduct(Product product) {
-        if (validate(product)) return false;
+        if (product == null || validate(product)) return false;
         for (Product item : repository) {
             if ((item.getId()).equals(product.getId())) {
                 logger.warning("Продукт с id " + product.getId() + " уже существует");
@@ -44,7 +44,7 @@ public class ProductListing extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean deleteProduct(Product product) { //Уточнить (String id)?
-        if (validate(product)) return false;
+        if (product == null || validate(product)) return false;
         for (Product item : repository) {
             if ((item.getId()).equals(product.getId())) {
                 //&& (item.getName()).equals(product.getName())?
@@ -105,7 +105,9 @@ public class ProductListing extends AbstractStorage<Product> implements DataServ
     }
 
     /**
-     * Данный метод валидирует данные входящей сущности "Product"
+     * Данный метод валидирует поля входящей сущности "Product"
+     * Выносим его отдельно на перспективу изменения сущности
+     *
      * @param product - продукт
      * @return true - если данные не валидны, а false - если да.
      */

@@ -25,7 +25,7 @@ public class ProductHashing extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean addProduct(Product product) {
-        if (validate(product)) return false;
+        if (product == null || validate(product)) return false;
         if (storage.containsKey(product.getId())) {
             logger.warning("Продукт с id " + product.getId() + " уже существует");
             return false;
@@ -43,7 +43,7 @@ public class ProductHashing extends AbstractStorage<Product> implements DataServ
      */
     @Override
     public boolean deleteProduct(Product product) {
-        if (validate(product)) return false;
+        if (product == null || validate(product)) return false;
         if (storage.remove(product.getId()) == null) {
             logger.warning("Продукт с id " + product.getId() +
                     " не найден, поэтому не может быть удален");
@@ -101,6 +101,8 @@ public class ProductHashing extends AbstractStorage<Product> implements DataServ
 
     /**
      * Данный метод валидирует данные входящей сущности "Product"
+     * Выносим его отдельно на перспективу изменения сущности
+     *
      * @param product - продукт
      * @return true - если данные не валидны, а false - если да.
      */

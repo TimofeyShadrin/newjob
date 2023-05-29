@@ -97,6 +97,7 @@ public class ProductListing extends AbstractStorage<Product> implements DataServ
         for (Product item : repository) {
             if ((item.getName().equals(name))) {
                 result.add(item.getId());
+                result.sort(String::compareTo);
             }
         }
         // если список пустой, то уничтожаем ссылку на объект возвращая Collections.emptyList(),

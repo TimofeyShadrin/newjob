@@ -118,7 +118,7 @@ public class ProductListingTest extends TestCase {
         for (Product product : products) {
             productListing.addProduct(product);
         }
-        List<String> expected = Arrays.asList("TBL", "DSK");
+        List<String> expected = Arrays.asList("DSK", "TBL");
         List<String> actual = productListing.findByName("Table");
         for (int i = 0; i < expected.size(); i++) {
             Assert.assertEquals(expected.get(i), actual.get(i));
